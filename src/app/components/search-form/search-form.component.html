@@ -1,0 +1,49 @@
+<form class="mt-3" [formGroup]="formModel">
+  <div class="form-group">
+    <div class="row justify-content-md-center">
+      <div class="col">
+        <input formControlName="search" type="text" class="form-control" aria-describedby="searchHelp" placeholder="Enter your search term" autofocus>
+        <small id="searchHelp" class="form-text text-muted" style="display: none;">Begin searching for resutls</small>
+      </div>
+    </div>
+    <div class="row justify-content-md-center mt-3">
+      <div class="col-md-8">
+        <h6 class="text-center">Search Fields:</h6>
+        <div class="d-flex justify-content-center">
+          <fieldset formGroupName="checkboxesGroup">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input formControlName="title" class="form-check-input" type="checkbox" value="title" checked>
+                Title
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input formControlName="body" class="form-check-input" type="checkbox" value="" checked>
+                Content
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input formControlName="authors" class="form-check-input" type="checkbox" value="" checked>
+                Authors
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input formControlName="keywords" class="form-check-input" type="checkbox" value="" checked>
+                Keywords
+              </label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div *ngFor="let result of results | async">
+  <app-result-item [result]="result"></app-result-item>
+</div>
+
+

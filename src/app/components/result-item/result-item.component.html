@@ -1,0 +1,31 @@
+<div class="row mt-3">
+  <div class="col">
+    <h5 class="mb-0"><a target="_blank" [href]="result.link">{{result.title}}</a></h5>
+    <p class="mb-0 text-success">{{result.link}}</p>
+    <p class="mb-0">{{result.abstract}} <a (click)="isFullMode = !isFullMode" href="javascript:void(0)">{{ isFullMode ? 'Hide' : 'Details'}} &#187;</a></p>
+    <div [hidden]="!isFullMode">
+      <div class="row">
+        <div class="col">
+          <span class="font-weight-bold">Keywords: </span>
+          <span *ngFor="let keyword of result.keywords" class="mr-2 badge badge-success">{{keyword}}</span> 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="font-weight-bold">Authors: </span>
+          <span *ngFor="let author of result.authors; let last = last">{{author.firstname}} {{author.lastname}} ({{author.institution}}){{last ? '' : ', '}}</span> 
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <span class="font-weight-bold">Journal: </span> {{result.journal}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p [innerHTML]="result.body | simpleFormat"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

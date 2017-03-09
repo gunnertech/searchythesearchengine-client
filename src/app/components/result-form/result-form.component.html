@@ -1,0 +1,76 @@
+<form class="mt-3" [formGroup]="formModel" novalidate (ngSubmit)="onSubmit()">
+  <div class="form-group" [ngClass]="{'has-danger': formModel.controls.title.touched && !formModel.controls.title.valid }">
+    <label class="form-control-label" for="title">Title</label>
+    <input formControlName="title" type="text" class="form-control form-control-danger" id="title">
+    <div *ngIf="formModel.controls.title.touched && !formModel.controls.title.valid" class="form-control-feedback">Title can't be blank</div>
+  </div>
+  <div class="form-group" [ngClass]="{'has-danger': formModel.controls.journal.touched && !formModel.controls.journal.valid }">
+    <label class="form-control-label" for="journal">Journal</label>
+    <input formControlName="journal" type="text" class="form-control form-control-danger" id="journal">
+    <div *ngIf="formModel.controls.journal.touched && !formModel.controls.journal.valid" class="form-control-feedback">Journal can't be blank</div>
+  </div>
+  <div class="form-group" [ngClass]="{'has-danger': formModel.controls.link.touched && !formModel.controls.link.valid }">
+    <label class="form-control-label" for="link">Link</label>
+    <input formControlName="link" type="text" class="form-control form-control-danger" id="link">
+    <div *ngIf="formModel.controls.link.touched && !formModel.controls.link.valid" class="form-control-feedback">Link can't be blank</div>
+  </div>
+  <div class="form-group" [ngClass]="{'has-danger': formModel.controls.abstract.touched && !formModel.controls.abstract.valid }">
+    <label class="form-control-label" for="abstract">Abstract</label>
+    <textarea formControlName="abstract" class="form-control form-control-danger" id="abstract"></textarea>
+    <div *ngIf="formModel.controls.abstract.touched && !formModel.controls.abstract.valid" class="form-control-feedback">Abstract can't be blank</div>
+  </div>
+  <div class="form-group" [ngClass]="{'has-danger': formModel.controls.body.touched && !formModel.controls.body.valid }">
+    <label class="form-control-label" for="body">Full Content</label>
+    <textarea formControlName="body" class="form-control form-control-danger" id="body"></textarea>
+    <div *ngIf="formModel.controls.body.touched && !formModel.controls.body.valid" class="form-control-feedback">Content can't be blank</div>
+  </div>
+
+  <div formArrayName="keywords" class="mt-3">
+    <h5>Keywords <a href="javascript:void(0)" (click)="addKeyword()" class="">[+]</a></h5>
+    <div *ngFor="let keyword of formModel.controls.keywords.controls; let i=index">
+      <div [formGroupName]="i">
+        <div class="form-group" [ngClass]="{'has-danger': formModel.controls.keywords.controls[i].controls.text.touched && !formModel.controls.keywords.controls[i].controls.text.valid }">
+          <label class="form-control-label">
+            Keyword {{i+1}}
+            <a href="javascript:void(0);" *ngIf="formModel.controls.keywords.controls.length > 1" 
+                (click)="removeKeyword(i)">[-]</a>
+          </label>
+          <input type="text" formControlName="text" class="form-control form-control-danger">
+          <div *ngIf="formModel.controls.keywords.controls[i].controls.text.touched && !formModel.controls.keywords.controls[i].controls.text.valid" class="form-control-feedback">Keyword can't be blank</div>
+        </div>
+      </div>
+    </div>
+    <!-- <button (click)="addKeyword()" type="button" class="btn btn-primary btn-sm">Add Keyword</button> -->
+  </div>
+
+  <div formArrayName="authors" class="mt-3">
+    <h5>Authors <a href="javascript:void(0)" (click)="addAuthor()" class="">[+]</a></h5>
+    <div *ngFor="let author of formModel.controls.authors.controls; let i=index">
+      <div [formGroupName]="i">
+        <h6>Author {{i+1}} <a href="javascript:void(0);" *ngIf="formModel.controls.authors.controls.length > 1" 
+                (click)="removeAuthor(i)">[-]</a></h6>
+        <div class="form-group" [ngClass]="{'has-danger': formModel.controls.authors.controls[i].controls.firstname.touched && !formModel.controls.authors.controls[i].controls.firstname.valid }">
+          <label class="form-control-label">First Name</label>
+          <input type="text" formControlName="firstname" class="form-control form-control-danger">
+          <div *ngIf="formModel.controls.authors.controls[i].controls.firstname.touched && !formModel.controls.authors.controls[i].controls.firstname.valid" class="form-control-feedback">First Name can't be blank</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-danger': formModel.controls.authors.controls[i].controls.lastname.touched && !formModel.controls.authors.controls[i].controls.lastname.valid }">
+          <label class="form-control-label">Last Name</label>
+          <input type="text" formControlName="lastname" class="form-control form-control-danger">
+          <div *ngIf="formModel.controls.authors.controls[i].controls.lastname.touched && !formModel.controls.authors.controls[i].controls.lastname.valid" class="form-control-feedback">Last Name can't be blank</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-danger': formModel.controls.authors.controls[i].controls.institution.touched && !formModel.controls.authors.controls[i].controls.institution.valid }">
+          <label class="form-control-label">Institution</label>
+          <input type="text" formControlName="institution" class="form-control form-control-danger">
+          <div *ngIf="formModel.controls.authors.controls[i].controls.institution.touched && !formModel.controls.authors.controls[i].controls.institution.valid" class="form-control-feedback">Institution can't be blank</div>
+        </div>
+
+      </div>
+    </div>
+    <!-- <button (click)="addAuthor()" type="button" class="btn btn-primary btn-sm">Add Author</button> -->
+  </div>
+
+  <button type="submit" [disabled]="formModel.invalid" class="btn btn-primary">Add Result</button>
+</form>
